@@ -1,9 +1,5 @@
 package com.gft.product.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,11 +7,16 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Integer Id;
     private String Name;
+
+    @Column(name = "`VALUE`")
     private Double Value;
+
+    public Product() {}
 
     public Product(String name, Double value) {
         Name = name;
