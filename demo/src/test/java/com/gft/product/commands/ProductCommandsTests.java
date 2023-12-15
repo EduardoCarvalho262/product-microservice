@@ -1,6 +1,7 @@
 package com.gft.product.commands;
 
 import com.gft.product.command.model.CreateProductCommand;
+import com.gft.product.command.model.DeleteProductCommand;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,5 +24,18 @@ public class ProductCommandsTests {
         //Assert
         Assert.assertEquals(expectedName, createProductCommand.getName());
         Assert.assertEquals(expectedValue, createProductCommand.getValue());
+    }
+
+    @Test
+    public void GiveDeleteACommand_WhenDelete_ThenReturnANewDeleteCommand(){
+        //Arrange
+        DeleteProductCommand deleteProductCommand = new DeleteProductCommand();
+        Integer expectedId = 1;
+
+        //Act
+        deleteProductCommand.setId(1);
+
+        //Assert
+        Assert.assertEquals(expectedId, deleteProductCommand.getId());
     }
 }

@@ -22,4 +22,10 @@ public class Product {
         Name = name;
         Value = value;
     }
+
+    public Product(Integer id, String name, Double value) {
+        Id = id;
+        Name = name;
+        Value = value;
+    }
 }

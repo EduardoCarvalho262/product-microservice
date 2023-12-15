@@ -1,6 +1,7 @@
 package com.gft.product.controllers;
 import com.gft.product.command.handlers.ProductCommandHandler;
 import com.gft.product.command.model.CreateProductCommand;
+import com.gft.product.command.model.DeleteProductCommand;
 import com.gft.product.dto.ProductDTO;
 import com.gft.product.queries.handlers.ProductQueryHandler;
 import org.junit.Assert;
@@ -50,7 +51,7 @@ public class ProductControllerTests {
         command.setName("Teste");
         command.setValue(99.99);
         Integer expected = 1;
-        when(commandHandler.handle(command)).thenReturn(1);
+        when(commandHandler.createHandle(command)).thenReturn(1);
 
         // Act
         Integer response = controller.createProduct(command);
@@ -74,6 +75,21 @@ public class ProductControllerTests {
         //Assert
         Assert.assertNotNull(response);
         Assert.assertEquals(expectedlist.size(), response.size());
+    }
+
+    @Test
+    public void giveADeleteCommand_WhenCallHandler_ThenReturnDeletedProductId(){
+        // Arrange
+        DeleteProductCommand command = new DeleteProductCommand();
+        Integer expected = 1;
+        when(commandHandler.deleteHandle(command)).thenReturn(1);
+
+        // Act
+        Integer response = controller.deleteProductById(command);
+
+        //Assert
+        Assert.assertNotNull(response);
+        Assert.assertEquals(expected, response);
     }
 
 }
