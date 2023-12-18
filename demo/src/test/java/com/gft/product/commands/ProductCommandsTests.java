@@ -2,6 +2,8 @@ package com.gft.product.commands;
 
 import com.gft.product.command.model.CreateProductCommand;
 import com.gft.product.command.model.DeleteProductCommand;
+import com.gft.product.command.model.UpdateProductCommand;
+import com.gft.product.model.Product;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,5 +39,25 @@ public class ProductCommandsTests {
 
         //Assert
         Assert.assertEquals(expectedId, deleteProductCommand.getId());
+    }
+
+
+
+    @Test
+    public void GiveUpdateACommand_WhenUpdate_ThenReturnANewProduct(){
+        //Arrange
+        Product oldProduct = new Product(1,"Teste1", 9.99);
+        UpdateProductCommand updateProductCommand = new UpdateProductCommand();
+
+
+        //Act
+        updateProductCommand.setId(oldProduct.getId());
+        updateProductCommand.setName(oldProduct.getName());
+        updateProductCommand.setValue(oldProduct.getValue());
+
+        //Assert
+        Assert.assertEquals(oldProduct.getId(), updateProductCommand.getId());
+        Assert.assertEquals(oldProduct.getName(), updateProductCommand.getName());
+        Assert.assertEquals(oldProduct.getValue(), updateProductCommand.getValue());
     }
 }

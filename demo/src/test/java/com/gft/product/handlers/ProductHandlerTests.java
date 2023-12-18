@@ -2,6 +2,7 @@ package com.gft.product.handlers;
 import com.gft.product.command.handlers.ProductCommandHandler;
 import com.gft.product.command.model.CreateProductCommand;
 import com.gft.product.command.model.DeleteProductCommand;
+import com.gft.product.command.model.UpdateProductCommand;
 import com.gft.product.model.Product;
 import com.gft.product.repository.ProductRepository;
 import org.junit.Assert;
@@ -53,6 +54,21 @@ public class ProductHandlerTests {
 
         //Act
         Integer response = commandHandler.deleteHandle(mockedCommand);
+
+        //Assert
+        Assert.assertNotNull(response);
+    }
+
+
+    @Test
+    public void GiveAUpdateCommand_WhenPassACommandToHandler_ReturnAIdUpdated(){
+        //Arrange
+        UpdateProductCommand updateCommand = new UpdateProductCommand();
+        when(productRepository.save(Mockito.any(Product.class)))
+                .thenReturn(new Product(1, updateCommand.getName(), updateCommand.getValue()));
+
+        //Act
+        Integer response = commandHandler.updateHandle(updateCommand);
 
         //Assert
         Assert.assertNotNull(response);

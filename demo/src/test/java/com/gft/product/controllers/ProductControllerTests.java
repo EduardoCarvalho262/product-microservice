@@ -2,6 +2,7 @@ package com.gft.product.controllers;
 import com.gft.product.command.handlers.ProductCommandHandler;
 import com.gft.product.command.model.CreateProductCommand;
 import com.gft.product.command.model.DeleteProductCommand;
+import com.gft.product.command.model.UpdateProductCommand;
 import com.gft.product.dto.ProductDTO;
 import com.gft.product.queries.handlers.ProductQueryHandler;
 import org.junit.Assert;
@@ -86,6 +87,22 @@ public class ProductControllerTests {
 
         // Act
         Integer response = controller.deleteProductById(command);
+
+        //Assert
+        Assert.assertNotNull(response);
+        Assert.assertEquals(expected, response);
+    }
+
+
+    @Test
+    public void giveAUpdateCommand_WhenPassToController_ThenReturnUpdatedProductId(){
+        // Arrange
+        UpdateProductCommand command = new UpdateProductCommand();
+        Integer expected = 1;
+        when(commandHandler.updateHandle(command)).thenReturn(1);
+
+        // Act
+        Integer response = controller.updateProduct(command);
 
         //Assert
         Assert.assertNotNull(response);
