@@ -29,10 +29,10 @@ public class ProductController {
     }
 
 
-    @GetMapping("/{id}")
-    public ProductDTO getProductById(@PathVariable Integer id){
-        return new ProductDTO("Teste", 99.99);
-    }
+    //@GetMapping("/{id}")
+    //public ProductDTO getProductById(@PathVariable Integer id){
+      //  return new ProductDTO("Teste", 99.99);
+    //}
 
     @PostMapping(value = "/new", consumes = "application/json")
     public ResponseEntity<String> createProduct(@RequestBody CreateProductCommand command) {
@@ -52,7 +52,7 @@ public class ProductController {
     @PutMapping(value = "/update" , consumes = "application/json")
     public ResponseEntity<String> updateProduct(@RequestBody UpdateProductCommand command){
         String responseBody = "Produto Atualizado";
-
+        productCommandHandler.updateHandle(command);
         return ResponseEntity.ok().body(responseBody);
     }
 
