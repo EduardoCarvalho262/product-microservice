@@ -31,7 +31,6 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductDTO getProductById(@PathVariable Integer id){
-        //TODO fazer busca por id no banco de dados
         return new ProductDTO("Teste", 99.99);
     }
 
