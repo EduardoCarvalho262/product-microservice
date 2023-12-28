@@ -30,7 +30,11 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer id){
-        return ResponseEntity.ok(productQueryHandler.getProductById(id));
+        ProductDTO  product = productQueryHandler.getProductById(id);
+        if(product == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(product);
     }
 
     @PostMapping(value = "/new", consumes = "application/json")
@@ -43,8 +47,11 @@ public class ProductController {
     @DeleteMapping(value = "/delete" , consumes = "application/json")
     public ResponseEntity<String> deleteProductById(@RequestBody DeleteProductCommand command){
         Integer productId = productCommandHandler.deleteHandle(command);
-        String responseBody = "Id deletado " + productId;
 
+        if(productId == null)
+            return ResponseEntity.notFound().build();
+
+        String responseBody = "Id deletado " + productId;
         return ResponseEntity.ok().body(responseBody);
     }
 

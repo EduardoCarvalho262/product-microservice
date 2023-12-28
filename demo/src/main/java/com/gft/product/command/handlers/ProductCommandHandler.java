@@ -27,9 +27,8 @@ public class ProductCommandHandler {
 
     @Transactional
     public Integer deleteHandle(DeleteProductCommand command){
-        Optional<Product> entity = productRepository.findById(command.getId());
-        productRepository.deleteById(entity.get().getId());
-        return entity.get().getId();
+        Optional<Product> entity = productRepository.findById(command.getId()).isPresent() ? productRepository.findById(command.getId()) : Optional.empty();
+        return entity.map(Product::getId).orElse(null);
     };
 
 

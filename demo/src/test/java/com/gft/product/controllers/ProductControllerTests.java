@@ -67,7 +67,7 @@ public class ProductControllerTests {
     @Test
     public void giveAQuery_WhenCallHandler_ThenReturnAllProducts(){
         // Arrange
-        List<ProductDTO> expectedlist = new ArrayList<ProductDTO>();
+        List<ProductDTO> expectedlist = new ArrayList<>();
         ProductDTO expectedProduct = new ProductDTO("Teste", 9.99);
         expectedlist.add(expectedProduct);
         when(queryHandler.getAllProducts()).thenReturn(expectedlist);
@@ -101,7 +101,7 @@ public class ProductControllerTests {
     public void giveAUpdateCommand_WhenPassToController_ThenReturnUpdatedProductId(){
         // Arrange
         UpdateProductCommand command = new UpdateProductCommand();
-        String expected = "Produto Atualizado";
+        String expected = "Produto Atualizado, Id: 1";
         when(commandHandler.updateHandle(command)).thenReturn(1);
 
         // Act

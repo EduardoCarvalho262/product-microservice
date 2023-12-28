@@ -1,6 +1,5 @@
 package com.gft.product.queries.handlers;
 
-
 import com.gft.product.dto.ProductDTO;
 import com.gft.product.model.Product;
 import com.gft.product.repository.ProductRepository;
@@ -24,7 +23,10 @@ public class ProductQueryHandler {
     }
 
     public ProductDTO getProductById(Integer id){
-        Product product = productRepository.findById(id).get();
+        Product product = productRepository.findById(id).isPresent() ? productRepository.findById(id).get() : null;
+
+        if(product == null)
+            return null;
         return new ProductDTO(product.getName(), product.getValue());
     }
 }
