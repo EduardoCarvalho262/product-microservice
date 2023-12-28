@@ -23,4 +23,8 @@ public class ProductQueryHandler {
                 .collect(Collectors.toList());
     }
 
+    public ProductDTO getProductById(Integer id){
+        Product product = productRepository.findById(id).get();
+        return new ProductDTO(product.getName(), product.getValue());
+    }
 }

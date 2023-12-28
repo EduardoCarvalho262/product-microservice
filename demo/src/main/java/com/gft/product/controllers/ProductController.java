@@ -51,8 +51,8 @@ public class ProductController {
 
     @PutMapping(value = "/update" , consumes = "application/json")
     public ResponseEntity<String> updateProduct(@RequestBody UpdateProductCommand command){
-        String responseBody = "Produto Atualizado";
-        productCommandHandler.updateHandle(command);
+        Integer id = productCommandHandler.updateHandle(command);
+        String responseBody = "Produto Atualizado, Id: " + id;
         return ResponseEntity.ok().body(responseBody);
     }
 

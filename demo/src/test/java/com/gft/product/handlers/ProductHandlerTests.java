@@ -3,7 +3,9 @@ import com.gft.product.command.handlers.ProductCommandHandler;
 import com.gft.product.command.model.CreateProductCommand;
 import com.gft.product.command.model.DeleteProductCommand;
 import com.gft.product.command.model.UpdateProductCommand;
+import com.gft.product.dto.ProductDTO;
 import com.gft.product.model.Product;
+import com.gft.product.queries.handlers.ProductQueryHandler;
 import com.gft.product.repository.ProductRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,6 +28,10 @@ public class ProductHandlerTests {
 
     @InjectMocks
     private ProductCommandHandler commandHandler;
+
+
+    @InjectMocks
+    private ProductQueryHandler queryHandler;
 
 
     @Test
@@ -72,5 +78,21 @@ public class ProductHandlerTests {
 
         //Assert
         Assert.assertNotNull(response);
+    }
+
+    @Test
+    public void GiveAProductId_WhenPassAQueryToHandler_ReturnAProduct(){
+        //Arrange
+        Integer productId = 1;
+        when(productRepository.findById(Mockito.any(Integer.class)))
+                .thenReturn(Optional.of(new Product(1, "Teste", 9.99)));
+
+        //Act
+        ProductDTO response = queryHandler.getProductById(productId);
+
+        //Assert
+        Assert.assertNotNull(response);
+        Assert.assertEquals("Teste", response.name);
+        Assert.assertEquals(Optional.of(9.99).get(), response.value);
     }
 }
