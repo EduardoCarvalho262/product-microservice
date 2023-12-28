@@ -101,16 +101,14 @@ public class ProductControllerTests {
     public void giveAUpdateCommand_WhenPassToController_ThenReturnUpdatedProductId(){
         // Arrange
         UpdateProductCommand command = new UpdateProductCommand();
-        String expected = "Produto Atualizado, Id: 1";
         when(commandHandler.updateHandle(command)).thenReturn(1);
 
         // Act
-        ResponseEntity<String> response = controller.updateProduct(command);
+        ResponseEntity<String> response = controller.updateProduct(1,command);
 
         //Assert
         Assert.assertNotNull(response);
-        Assert.assertEquals(expected, response.getBody());
-        Assert.assertEquals(200, response.getStatusCode().value());
+        Assert.assertEquals(204, response.getStatusCode().value());
     }
 
     @Test

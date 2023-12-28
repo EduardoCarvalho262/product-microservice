@@ -55,11 +55,11 @@ public class ProductController {
         return ResponseEntity.ok().body(responseBody);
     }
 
-    @PutMapping(value = "/update" , consumes = "application/json")
-    public ResponseEntity<String> updateProduct(@RequestBody UpdateProductCommand command){
-        Integer id = productCommandHandler.updateHandle(command);
-        String responseBody = "Produto Atualizado, Id: " + id;
-        return ResponseEntity.ok().body(responseBody);
+    @PutMapping(value = "/{id}" , consumes = "application/json")
+    public ResponseEntity<String> updateProduct(@PathVariable  Integer id, @RequestBody UpdateProductCommand command){
+        command.setId(id);
+        productCommandHandler.updateHandle(command);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/ping")
