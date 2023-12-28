@@ -112,4 +112,20 @@ public class ProductControllerTests {
         Assert.assertEquals(expected, response.getBody());
         Assert.assertEquals(200, response.getStatusCode().value());
     }
+
+    @Test
+    public void giveAQueryGetById_WhenPassIdToController_ThenReturnOneProduct(){
+        // Arrange
+        Integer productId = 1;
+        when(queryHandler.getProductById(productId)).thenReturn(new ProductDTO("Teste", 9.99));
+
+        // Act
+        ResponseEntity<ProductDTO> response = controller.getProductById(productId);
+
+        //Assert
+        Assert.assertNotNull(response);
+        Assert.assertEquals("Teste", response.getBody().name);
+        Assert.assertEquals(9.99, response.getBody().value, 0.01);
+        Assert.assertEquals(200, response.getStatusCode().value());
+    }
 }

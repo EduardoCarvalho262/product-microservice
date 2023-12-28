@@ -28,11 +28,10 @@ public class ProductController {
         return ResponseEntity.ok(productQueryHandler.getAllProducts());
     }
 
-
-    //@GetMapping("/{id}")
-    //public ProductDTO getProductById(@PathVariable Integer id){
-      //  return new ProductDTO("Teste", 99.99);
-    //}
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer id){
+        return ResponseEntity.ok(productQueryHandler.getProductById(id));
+    }
 
     @PostMapping(value = "/new", consumes = "application/json")
     public ResponseEntity<String> createProduct(@RequestBody CreateProductCommand command) {
