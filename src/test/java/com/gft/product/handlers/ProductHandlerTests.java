@@ -41,7 +41,7 @@ public class ProductHandlerTests {
         newCommand.setValue(9.99);
         newCommand.setName("Cadeira");
         when(productRepository.save(Mockito.any(Product.class)))
-                .thenReturn(new Product(1, newCommand.getName(), newCommand.getValue()));
+                .thenReturn(new Product(1, newCommand.getName(), newCommand.getValue(), (byte) 4));
 
         //Act
          Integer response = commandHandler.createHandle(newCommand);
@@ -56,7 +56,7 @@ public class ProductHandlerTests {
         DeleteProductCommand mockedCommand = mock(DeleteProductCommand.class);
         mockedCommand.setId(1);
         when(productRepository.findById(Mockito.any(Integer.class)))
-                .thenReturn(Optional.of(new Product(1, "Teste", 9.99)));
+                .thenReturn(Optional.of(new Product(1, "Teste", 9.99, (byte) 4)));
 
         //Act
         Integer response = commandHandler.deleteHandle(mockedCommand);
@@ -71,7 +71,7 @@ public class ProductHandlerTests {
         //Arrange
         UpdateProductCommand updateCommand = new UpdateProductCommand();
         when(productRepository.save(Mockito.any(Product.class)))
-                .thenReturn(new Product(1, updateCommand.getName(), updateCommand.getValue()));
+                .thenReturn(new Product(1, updateCommand.getName(), updateCommand.getValue(),(byte) 4));
 
         //Act
         Integer response = commandHandler.updateHandle(updateCommand);
@@ -85,7 +85,7 @@ public class ProductHandlerTests {
         //Arrange
         Integer productId = 1;
         when(productRepository.findById(Mockito.any(Integer.class)))
-                .thenReturn(Optional.of(new Product(1, "Teste", 9.99)));
+                .thenReturn(Optional.of(new Product(1, "Teste", 9.99, (byte) 4)));
 
         //Act
         ProductDTO response = queryHandler.getProductById(productId);
