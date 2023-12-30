@@ -12,7 +12,7 @@ public class ProductModelTests {
     @Test
     public void GiveAObject_WhenCreate_ThenReturnAProductObject() {
         //Arrange
-        Product product = new Product("Mouse", 9.99);
+        Product product = new Product("Mouse", 9.99, (byte) 4);
         String expectedName = "Mouse";
         Double expectedValue = 9.99;
 
@@ -31,7 +31,7 @@ public class ProductModelTests {
     @Test
     public void GiveAObject_WhenCallField_ThenReturnValueOfFields() {
         //Arrange
-        Product product = new Product("Mouse", 9.99);
+        Product product = new Product("Mouse", 9.99,(byte) 5);
 
         //Assert
         Assert.assertNotNull(product.getName());

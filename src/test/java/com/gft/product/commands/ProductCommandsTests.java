@@ -46,7 +46,7 @@ public class ProductCommandsTests {
     @Test
     public void GiveUpdateACommand_WhenUpdate_ThenReturnANewProduct(){
         //Arrange
-        Product oldProduct = new Product(1,"Teste1", 9.99);
+        Product oldProduct = new Product(1,"Teste1", 9.99, (byte) 5);
         UpdateProductCommand updateProductCommand = new UpdateProductCommand();
 
 

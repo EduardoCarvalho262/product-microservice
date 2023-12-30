@@ -8,4 +8,5 @@ import lombok.Setter;
 public class CreateProductCommand {
     public String Name;
     public Double Value;
+    public Byte Rating;
 }

@@ -68,7 +68,7 @@ public class ProductControllerTests {
     public void giveAQuery_WhenCallHandler_ThenReturnAllProducts(){
         // Arrange
         List<ProductDTO> expectedlist = new ArrayList<>();
-        ProductDTO expectedProduct = new ProductDTO("Teste", 9.99);
+        ProductDTO expectedProduct = new ProductDTO("Teste", 9.99, (byte) 2);
         expectedlist.add(expectedProduct);
         when(queryHandler.getAllProducts()).thenReturn(expectedlist);
 
@@ -115,7 +115,7 @@ public class ProductControllerTests {
     public void giveAQueryGetById_WhenPassIdToController_ThenReturnOneProduct(){
         // Arrange
         Integer productId = 1;
-        when(queryHandler.getProductById(productId)).thenReturn(new ProductDTO("Teste", 9.99));
+        when(queryHandler.getProductById(productId)).thenReturn(new ProductDTO("Teste", 9.99, (byte) 5));
 
         // Act
         ResponseEntity<ProductDTO> response = controller.getProductById(productId);

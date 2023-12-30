@@ -10,4 +10,5 @@ public class UpdateProductCommand {
     public Integer Id;
     public String Name;
     public Double Value;
+    public Byte Rating;
 }

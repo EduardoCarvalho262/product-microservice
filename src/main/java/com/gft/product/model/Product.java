@@ -16,16 +16,21 @@ public class Product {
     @Column(name = "`VALUE`")
     private Double Value;
 
+    @Column(name = "`RATING`")
+    private Byte Rating;
+
     public Product() {}
 
-    public Product(String name, Double value) {
+    public Product(String name, Double value, Byte rating) {
         Name = name;
         Value = value;
+        Rating = rating;
     }
 
-    public Product(Integer id, String name, Double value) {
+    public Product(Integer id, String name, Double value, Byte rating) {
         Id = id;
         Name = name;
         Value = value;
+        Rating = rating;
     }
 }
