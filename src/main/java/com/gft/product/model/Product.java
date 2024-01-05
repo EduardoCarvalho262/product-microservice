@@ -19,6 +19,8 @@ public class Product {
     @Column(name = "`RATING`")
     private Byte Rating;
 
+    private String Image;
+
     public Product() {}
 
     public Product(String name, Double value, Byte rating) {
