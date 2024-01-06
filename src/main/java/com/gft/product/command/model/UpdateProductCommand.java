@@ -11,4 +11,5 @@ public class UpdateProductCommand {
     public String Name;
     public Double Value;
     public Byte Rating;
+    public String Image;
 }

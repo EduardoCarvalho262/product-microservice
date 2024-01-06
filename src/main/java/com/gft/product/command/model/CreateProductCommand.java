@@ -9,4 +9,5 @@ public class CreateProductCommand {
     public String Name;
     public Double Value;
     public Byte Rating;
+    public String Image;
 }

@@ -29,10 +29,11 @@ public class Product {
         Rating = rating;
     }
 
-    public Product(Integer id, String name, Double value, Byte rating) {
+    public Product(Integer id, String name, Double value, Byte rating, String image) {
         Id = id;
         Name = name;
         Value = value;
         Rating = rating;
+        Image = image;
     }
 }

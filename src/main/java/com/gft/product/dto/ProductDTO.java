@@ -9,6 +9,7 @@ public class ProductDTO {
     public String name;
     public Double value;
     public Byte rating;
+    public String Image;
 
 
     public ProductDTO() {

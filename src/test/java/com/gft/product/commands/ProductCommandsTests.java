@@ -25,7 +25,7 @@ public class ProductCommandsTests {
         //Act
         createProductCommand.setName("Teste");
         createProductCommand.setValue(9.99);
-        createProductCommand.setImage(String.valueOf(ClassLoader.getSystemResource("assets/imageTest.jpg"));
+        createProductCommand.setImage(String.valueOf(ClassLoader.getSystemResource("assets/imageTest.jpg")));
 
         //Assert
         Assert.assertEquals(expectedName, createProductCommand.getName());
@@ -52,7 +52,7 @@ public class ProductCommandsTests {
     public void GiveUpdateACommand_WhenUpdate_ThenReturnANewProduct(){
         //Arrange
         String oldImage = String.valueOf(ClassLoader.getSystemResource("assets/imageTest.jpg"));;
-        Product oldProduct = new Product(1,"Teste1", 9.99, (byte) 5, image);
+        Product oldProduct = new Product(1,"Teste1", 9.99, (byte) 5, oldImage);
         UpdateProductCommand updateProductCommand = new UpdateProductCommand();
 
 
@@ -60,7 +60,7 @@ public class ProductCommandsTests {
         updateProductCommand.setId(oldProduct.getId());
         updateProductCommand.setName(oldProduct.getName());
         updateProductCommand.setValue(oldProduct.getValue());
-        updateProductCommand.setValue(oldProduct.getImage());
+        updateProductCommand.setImage(oldProduct.getImage());
 
         //Assert
         Assert.assertEquals(oldProduct.getId(), updateProductCommand.getId());
