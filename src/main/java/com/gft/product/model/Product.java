@@ -19,6 +19,8 @@ public class Product {
     @Column(name = "`RATING`")
     private Byte Rating;
 
+    @Lob
+    @Column(name = "`IMAGE`", columnDefinition = "BLOB")
     private String Image;
 
     public Product() {}

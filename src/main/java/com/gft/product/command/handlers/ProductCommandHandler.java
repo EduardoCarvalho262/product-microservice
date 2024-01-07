@@ -20,6 +20,7 @@ public class ProductCommandHandler {
     @Transactional
     public Integer createHandle(CreateProductCommand command){
         Product newProduct = new Product(command.getName(), command.getValue(), command.getRating());
+        newProduct.setImage(command.getImage());
         var response = productRepository.save(newProduct);
 
         return response.getId();
@@ -34,7 +35,7 @@ public class ProductCommandHandler {
 
     @Transactional
     public Integer updateHandle(UpdateProductCommand command){
-        Product newProduct = new Product(command.getId(),command.getName(), command.getValue(), command.getRating(), "");
+        Product newProduct = new Product(command.getId(),command.getName(), command.getValue(), command.getRating(), command.getImage());
         var response = productRepository.save(newProduct);
 
         return response.getId();

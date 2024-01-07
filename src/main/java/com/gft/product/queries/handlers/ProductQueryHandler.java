@@ -18,7 +18,7 @@ public class ProductQueryHandler {
         List<Product> products = (List<Product>) productRepository.findAll();
 
         return products.stream()
-                .map(product -> new ProductDTO(product.getName(), product.getValue(), product.getRating()))
+                .map(product -> new ProductDTO(product.getName(), product.getValue(), product.getRating(), product.getImage()))
                 .collect(Collectors.toList());
     }
 
@@ -27,6 +27,6 @@ public class ProductQueryHandler {
 
         if(product == null)
             return null;
-        return new ProductDTO(product.getName(), product.getValue(), product.getRating());
+        return new ProductDTO(product.getName(), product.getValue(), product.getRating(), product.getImage());
     }
 }

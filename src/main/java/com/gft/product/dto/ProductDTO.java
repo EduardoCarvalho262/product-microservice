@@ -9,15 +9,16 @@ public class ProductDTO {
     public String name;
     public Double value;
     public Byte rating;
-    public String Image;
+    public String image;
 
 
     public ProductDTO() {
     }
 
-    public ProductDTO(String name, Double value, Byte rating) {
+    public ProductDTO(String name, Double value, Byte rating, String image) {
         this.name = name;
         this.value = value;
         this.rating = rating;
+        this.image = image;
     }
 }
