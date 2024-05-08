@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -30,40 +29,21 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer id){
-        ProductDTO  product = productQueryHandler.getProductById(id);
-        if(product == null)
-            return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok(product);
+        return productQueryHandler.getProductById(id);
     }
 
     @PostMapping(value = "/new", consumes = "application/json")
     public ResponseEntity<String> createProduct(@RequestBody CreateProductCommand command) {
-        int productId = productCommandHandler.createHandle(command);
-        String responseBody = "Id: " + productId;
-
-        return ResponseEntity.created(URI.create("/v1/product/" + productId)).body(responseBody);
+        return productCommandHandler.createHandle(command);
     }
+
     @DeleteMapping(value = "/delete" , consumes = "application/json")
     public ResponseEntity<String> deleteProductById(@RequestBody DeleteProductCommand command){
-        Integer productId = productCommandHandler.deleteHandle(command);
-
-        if(productId == null)
-            return ResponseEntity.notFound().build();
-
-        String responseBody = "Id deletado " + productId;
-        return ResponseEntity.ok().body(responseBody);
+       return productCommandHandler.deleteHandle(command);
     }
 
     @PutMapping(value = "/{id}" , consumes = "application/json")
     public ResponseEntity<String> updateProduct(@PathVariable  Integer id, @RequestBody UpdateProductCommand command){
-        command.setId(id);
-        productCommandHandler.updateHandle(command);
-        return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/ping")
-    public String Ping(){
-        return "Pong";
+        return productCommandHandler.updateHandle(command, id);
     }
 }

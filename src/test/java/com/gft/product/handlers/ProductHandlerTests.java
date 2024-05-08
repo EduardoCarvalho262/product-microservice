@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
@@ -44,7 +45,7 @@ public class ProductHandlerTests {
                 .thenReturn(new Product(1, newCommand.getName(), newCommand.getValue(), (byte) 4, ""));
 
         //Act
-         Integer response = commandHandler.createHandle(newCommand);
+        ResponseEntity<String>  response = commandHandler.createHandle(newCommand);
 
         //Assert
         Assert.assertNotNull(response);
@@ -59,7 +60,7 @@ public class ProductHandlerTests {
                 .thenReturn(Optional.of(new Product(1, "Teste", 9.99, (byte) 4, "")));
 
         //Act
-        Integer response = commandHandler.deleteHandle(mockedCommand);
+        ResponseEntity<String> response = commandHandler.deleteHandle(mockedCommand);
 
         //Assert
         Assert.assertNotNull(response);
@@ -74,7 +75,7 @@ public class ProductHandlerTests {
                 .thenReturn(new Product(1, updateCommand.getName(), updateCommand.getValue(),(byte) 4, ""));
 
         //Act
-        Integer response = commandHandler.updateHandle(updateCommand);
+        ResponseEntity<String>  response = commandHandler.updateHandle(updateCommand, 1);
 
         //Assert
         Assert.assertNotNull(response);
@@ -88,11 +89,12 @@ public class ProductHandlerTests {
                 .thenReturn(Optional.of(new Product(1, "Teste", 9.99, (byte) 4, "")));
 
         //Act
-        ProductDTO response = queryHandler.getProductById(productId);
+        ResponseEntity<ProductDTO> response = queryHandler.getProductById(productId);
 
         //Assert
         Assert.assertNotNull(response);
-        Assert.assertEquals("Teste", response.name);
-        Assert.assertEquals(Optional.of(9.99).get(), response.value);
+        Assert.assertNotNull(response.getBody());
+        Assert.assertEquals("Teste", response.getBody().name);
+        Assert.assertEquals(Optional.of(9.99).get(), response.getBody().value);
     }
 }

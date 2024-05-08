@@ -4,6 +4,7 @@ import com.gft.product.dto.ProductDTO;
 import com.gft.product.model.Product;
 import com.gft.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,11 +23,14 @@ public class ProductQueryHandler {
                 .collect(Collectors.toList());
     }
 
-    public ProductDTO getProductById(Integer id){
+    public ResponseEntity<ProductDTO> getProductById(Integer id){
         Product product = productRepository.findById(id).isPresent() ? productRepository.findById(id).get() : null;
 
         if(product == null)
-            return null;
-        return new ProductDTO(product.getName(), product.getValue(), product.getRating(), product.getImage());
+            return ResponseEntity.notFound().build();
+
+        ProductDTO response = new ProductDTO(product.getName(), product.getValue(), product.getRating(), product.getImage());
+
+        return ResponseEntity.ok(response);
     }
 }

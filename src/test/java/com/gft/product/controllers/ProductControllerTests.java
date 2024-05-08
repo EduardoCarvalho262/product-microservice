@@ -14,8 +14,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.mockito.Mockito.when;
 
@@ -32,6 +34,9 @@ public class ProductControllerTests {
     @InjectMocks
     private ProductController controller;
 
+    @InjectMocks
+    private PongController pingController;
+
 
     @Test
     public void giveAPing_WhenCallMethod_ThenReturnPong(){
@@ -39,7 +44,7 @@ public class ProductControllerTests {
         String expected = "Pong";
 
         // Act
-        String response = controller.Ping();
+        String response = pingController.Ping();
 
         //Assert
         Assert.assertNotNull(response);
@@ -53,7 +58,7 @@ public class ProductControllerTests {
         command.setName("Teste");
         command.setValue(99.99);
         String expected = "Id: 1";
-        when(commandHandler.createHandle(command)).thenReturn(1);
+        when(commandHandler.createHandle(command)).thenReturn(ResponseEntity.created(URI.create("/v1/product/" + 1)).body("Id: 1"));
 
         // Act
         ResponseEntity<String> response = controller.createProduct(command);
@@ -77,7 +82,8 @@ public class ProductControllerTests {
 
         //Assert
         Assert.assertNotNull(response);
-        Assert.assertEquals(expectedlist.size(), response.getBody().size());
+        response.getBody();
+        Assert.assertEquals(expectedlist.size(), Objects.requireNonNull(response.getBody()).size());
         Assert.assertEquals(200, response.getStatusCode().value());
     }
 
@@ -85,8 +91,8 @@ public class ProductControllerTests {
     public void giveADeleteCommand_WhenCallHandler_ThenReturnDeletedProductId(){
         // Arrange
         DeleteProductCommand command = new DeleteProductCommand();
-        String expected = "Id deletado 1";
-        when(commandHandler.deleteHandle(command)).thenReturn(1);
+        String expected = "Id deletado: 1";
+        when(commandHandler.deleteHandle(command)).thenReturn(ResponseEntity.ok().body("Id deletado: 1"));
 
         // Act
         ResponseEntity<String> response = controller.deleteProductById(command);
@@ -101,7 +107,7 @@ public class ProductControllerTests {
     public void giveAUpdateCommand_WhenPassToController_ThenReturnUpdatedProductId(){
         // Arrange
         UpdateProductCommand command = new UpdateProductCommand();
-        when(commandHandler.updateHandle(command)).thenReturn(1);
+        when(commandHandler.updateHandle(command, 1)).thenReturn(ResponseEntity.noContent().build());
 
         // Act
         ResponseEntity<String> response = controller.updateProduct(1,command);
@@ -115,13 +121,14 @@ public class ProductControllerTests {
     public void giveAQueryGetById_WhenPassIdToController_ThenReturnOneProduct(){
         // Arrange
         Integer productId = 1;
-        when(queryHandler.getProductById(productId)).thenReturn(new ProductDTO("Teste", 9.99, (byte) 5, ""));
+        when(queryHandler.getProductById(productId)).thenReturn(ResponseEntity.ok(new ProductDTO("Teste", 9.99, (byte) 5, "")));
 
         // Act
         ResponseEntity<ProductDTO> response = controller.getProductById(productId);
 
         //Assert
         Assert.assertNotNull(response);
+        Assert.assertNotNull(response.getBody());
         Assert.assertEquals("Teste", response.getBody().name);
         Assert.assertEquals(9.99, response.getBody().value, 0.01);
         Assert.assertEquals(200, response.getStatusCode().value());
